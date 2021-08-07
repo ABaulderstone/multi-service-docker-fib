@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t abaulderstone/react-test -f ./client/Dockerfile.dev ./client
+script:
+  -  docker run abaulderstone/react-test yarn test -- --coverage
+
+after_success:
+  - docker build -t abaulderstone/multi-client ./client
+  - docker build -t abaulderstone/multi-nginx ./nginx
+  - docker build -t abaulderstone/multi-server ./server
+  - docker build -t abaulderstone/multi-worker ./worker
+  #login
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push to docker hub
+  - docker push abaulderstone/multi-client
+  - docker push abaulderstone/multi-nginx
+  - docker push abaulderstone/multi-server
+  - docker push abaulderstone/multi-worker
+
