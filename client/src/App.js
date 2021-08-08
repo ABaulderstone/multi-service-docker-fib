@@ -6,12 +6,16 @@ import Fib from './Fib';
 
 function App() {
   return (
+    
     <Router>
       <>
       <div>
+        <h1>Fibbonaci Calculator</h1>
           <Link to ="/">Home</Link>
+          <br />
           <Link to ="/otherpage">Other Page</Link>
       </div>
+      <br />
       <div>
         <Route exact path="/" component={Fib} />
         <Route path="/otherpage" component={OtherPage} />
