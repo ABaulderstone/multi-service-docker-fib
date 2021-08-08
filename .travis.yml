@@ -19,3 +19,14 @@ after_success:
   - docker push abaulderstone/multi-server
   - docker push abaulderstone/multi-worker
 
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-2
+  app: multi-docker
+  env: Multidocker-env
+  bucket_name: elasticbeanstalk-ap-southeast-2-183817317903
+  bucket_path: multi-docker
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
